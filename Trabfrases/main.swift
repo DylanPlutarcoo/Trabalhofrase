@@ -9,8 +9,9 @@ var fraseretirar: String = ""
 var frases: [String] = []
 var frasesNovas: [String] = [""]
 
+// Poderia na procura da frase ser um .contains()
 
-//Decoder/jso
+// Decoder/json
 struct Phrase: Codable {
     var frases: [String]
 }
@@ -124,9 +125,9 @@ func listarFrase(){
     //        print("\(index): \(element)")
      //  }
     
-    while(option != "E" || option != "e") {
+    while(option.lowercased() != "e") {
         
-        gerarFrase()
+//        gerarFrase()
         print("-----BEM VINDO:-----\n Digite a para gerar uma nova frase:\n Digite b para adicionar uma frase:\n Digite c para remover uma frase:\n Digite d para listar as frases:\n Digite e para sair do app:\n")
         print("Frase Aleatoria:")
         
