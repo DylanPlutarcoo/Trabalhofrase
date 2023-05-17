@@ -1,9 +1,10 @@
 //
-//  Mode.swift
+//  main1.swift
 //  Trabfrases
 //
-//  Created by userext on 17/05/23.
+//  Created by userext on 16/05/23.
 //
+
 import Foundation
 
 //MARK: Model
