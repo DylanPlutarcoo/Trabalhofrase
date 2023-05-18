@@ -8,13 +8,14 @@
 import Foundation
 
 class ViewModel {
-    
-    let fileManager = FileManager.default
-    var documentsDirectory: URL {
-        return fileManager.urls(for: .documentDirectory, in: .allDomainsMask).first!
+    // protocolo é conjunto de regras que indica que quem assina o protocolo tem que implementar as regras
+    static let fileManager = FileManager.default
+    // static é pra acessar sem instanciar ("acesso global") n muda com instancia
+  static  var documentsDirectory: URL {
+        return ViewModel.fileManager.urls(for: .documentDirectory, in: .allDomainsMask).first!
     }
-    var jsonURL: URL {
-        return documentsDirectory.appendingPathComponent("strings.json")
+   static var jsonURL: URL {
+       return ViewModel.documentsDirectory.appendingPathComponent("strings.json")
     }
     
     
@@ -22,7 +23,7 @@ class ViewModel {
         let decoder = JSONDecoder()
         do {
             
-            let dado = try Data(contentsOf: jsonURL)
+            let dado = try Data(contentsOf: ViewModel.jsonURL)
             let objectDecode = try decoder.decode(Phrase.self, from: dado)
             frases.phrases = objectDecode.frases
         } catch{
@@ -38,7 +39,7 @@ class ViewModel {
         let encoder = JSONEncoder()
         do {
             let frasenewJSONData = try encoder.encode(frases)
-            try frasenewJSONData.write(to: jsonURL)
+            try frasenewJSONData.write(to: ViewModel.jsonURL)
         }  catch{
             print("erro")
         }
@@ -46,9 +47,11 @@ class ViewModel {
     //func:
 
     func adicionarFrase(){
+        // private func so existe dentro da func
+        // public so oq view precisa ver
         while option2.option != "c" {
             print("Digite 'a' para adicionar uma frase 'b' para salvar e 'c' para sair")
-            if let carat = readLine(){
+            if let carat = readLine() {
                 option2.option = carat
             }
             switch option2.option.lowercased() {
@@ -91,6 +94,7 @@ class ViewModel {
                 guard let index = frases.phrases.firstIndex(of: "\(fraseRetirar)")
                      //   var indexRetirar = index
                 else { return }
+                // thorw trata erros de maneira "sofisticada" tipo com enumns
                var indexRetirar = index
                 frases.phrases.remove(at: indexRetirar)
 
